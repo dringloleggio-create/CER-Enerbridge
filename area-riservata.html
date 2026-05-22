@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Area Riservata Soci – CER Enerbridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#0D3B6E;--blue-mid:#1A5FAD;--blue-light:#2B7FE8;--blue-pale:#E6F1FB;
+  --orange:#E8660A;--orange-mid:#F07C2A;--orange-light:#FAA94A;
+  --yellow:#F5C518;--yellow-light:#FDE68A;
+  --white:#FFFFFF;--off:#F7F9FC;--gray:#64748B;--gray-light:#E2E8F0;
+  --green:#065F46;--green-bg:#ECFDF5;--green-mid:#10B981;
+  --red:#991B1B;--red-bg:#FEF2F2;
+  --sidebar:260px;
+}
+html,body{height:100%;font-family:'Nunito',sans-serif;color:#1E293B;background:var(--off);}
+
+/* ====== LOGIN ====== */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#071E3D 0%,#0D3B6E 50%,#1A5FAD 100%);position:relative;overflow:hidden;}
+.login-rings{position:absolute;inset:0;pointer-events:none;}
+.lr{position:absolute;border-radius:50%;border:1px solid rgba(245,197,24,0.1);}
+.lr:nth-child(1){width:400px;height:400px;top:-150px;right:-100px;animation:lrspin 40s linear infinite;}
+.lr:nth-child(2){width:700px;height:700px;bottom:-300px;left:-200px;animation:lrspin 65s linear infinite reverse;}
+@keyframes lrspin{to{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+.login-box{background:#fff;border-radius:24px;padding:3rem 2.5rem;width:100%;max-width:440px;position:relative;z-index:2;animation:fadeIn 0.5s ease both;}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:2rem;justify-content:center;}
+.login-logo-text{font-family:'Exo 2',sans-serif;font-weight:800;font-size:1.3rem;color:var(--blue);line-height:1.2;}
+.login-logo-sub{font-size:0.65rem;color:var(--orange);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;}
+.login-title{font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:800;color:var(--blue);text-align:center;margin-bottom:4px;}
+.login-subtitle{font-size:0.875rem;color:var(--gray);text-align:center;margin-bottom:2rem;}
+.login-field{margin-bottom:1.25rem;}
+.login-field label{display:block;font-size:0.78rem;font-weight:700;color:var(--blue);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
+.login-field input{width:100%;padding:13px 16px;border:1.5px solid var(--gray-light);border-radius:12px;font-family:'Nunito',sans-serif;font-size:1rem;color:#1E293B;outline:none;transition:border-color 0.2s,box-shadow 0.2s;letter-spacing:0.5px;}
+.login-field input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(26,95,173,0.12);}
+.login-btn{width:100%;background:var(--orange);color:#fff;padding:14px;border:none;border-radius:32px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,transform 0.15s;margin-top:0.5rem;}
+.login-btn:hover{background:var(--orange-mid);transform:translateY(-1px);}
+.login-error{background:var(--red-bg);border:1px solid #FECACA;border-radius:10px;padding:10px 14px;font-size:0.85rem;color:var(--red);margin-bottom:1rem;display:none;}
+.login-demo{margin-top:2rem;background:var(--off);border-radius:14px;padding:1.25rem;}
+.login-demo-title{font-size:0.72rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.demo-item{background:#fff;border:1px solid var(--gray-light);border-radius:10px;padding:8px 10px;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;}
+.demo-item:hover{border-color:var(--blue-mid);box-shadow:0 0 0 2px rgba(26,95,173,0.08);}
+.demo-role{font-size:0.7rem;font-weight:700;color:var(--blue);margin-bottom:2px;}
+.demo-cred{font-size:0.68rem;color:var(--gray);font-family:monospace;}
+.back-link{display:block;text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--gray-light);text-decoration:none;transition:color 0.2s;}
+.back-link:hover{color:#fff;}
+
+/* ====== APP SHELL ====== */
+#app{display:none;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar);height:100vh;background:var(--blue);display:flex;flex-direction:column;z-index:50;transition:transform 0.3s;}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:1.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);}
+.sidebar-logo-text{font-family:'Exo 2',sans-serif;font-weight:800;font-size:1rem;color:#fff;line-height:1.2;}
+.sidebar-logo-sub{font-size:0.55rem;color:var(--orange-light);letter-spacing:1.5px;text-transform:uppercase;}
+.sidebar-user{padding:1.25rem;border-bottom:1px solid rgba(255,255,255,0.1);}
+.user-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:700;font-size:0.9rem;color:#fff;margin-bottom:8px;}
+.user-name{font-weight:700;color:#fff;font-size:0.9rem;line-height:1.3;}
+.user-role-badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-top:4px;}
+.sidebar-nav{flex:1;overflow-y:auto;padding:1rem 0;}
+.nav-section-label{font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.75rem 1.25rem 0.4rem;}
+.sidebar-nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.25rem;color:rgba(255,255,255,0.65);font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;margin:1px 0;}
+.sidebar-nav-item:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.sidebar-nav-item.active{color:#fff;background:rgba(255,255,255,0.1);border-left-color:var(--yellow);}
+.sidebar-nav-item .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:0.75;}
+.sidebar-nav-item.active .nav-icon{opacity:1;}
+.sidebar-nav-item .nav-badge{margin-left:auto;background:var(--orange);color:#fff;font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:10px;}
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,0.1);}
+.logout-btn{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;transition:color 0.2s;background:none;border:none;font-family:'Nunito',sans-serif;padding:0;}
+.logout-btn:hover{color:#fff;}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+.topbar{background:#fff;border-bottom:1px solid var(--gray-light);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:10;}
+.topbar-title{font-family:'Exo 2',sans-serif;font-size:1.1rem;font-weight:700;color:var(--blue);}
+.topbar-right{display:flex;align-items:center;gap:1rem;}
+.notif-btn{position:relative;background:var(--off);border:1px solid var(--gray-light);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--orange);border-radius:50%;border:1.5px solid #fff;}
+.content{padding:2rem;flex:1;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi-card{background:#fff;border-radius:16px;padding:1.25rem 1.5rem;border:1px solid var(--gray-light);}
+.kpi-label{font-size:0.72rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.kpi-value{font-family:'Exo 2',sans-serif;font-size:1.8rem;font-weight:800;color:var(--blue);line-height:1;}
+.kpi-value.orange{color:var(--orange);}
+.kpi-value.green{color:var(--green);}
+.kpi-value.yellow{color:#B45309;}
+.kpi-sub{font-size:0.72rem;color:var(--gray);margin-top:6px;display:flex;align-items:center;gap:4px;}
+.kpi-up{color:var(--green-mid);}
+.kpi-down{color:#EF4444;}
+
+/* CARDS */
+.card{background:#fff;border-radius:16px;border:1px solid var(--gray-light);overflow:hidden;margin-bottom:1.5rem;}
+.card-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--gray-light);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);}
+.card-body{padding:1.5rem;}
+.card-badge{font-size:0.68rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:3px 10px;border-radius:12px;}
+.card-badge.blue{background:var(--blue-pale);color:var(--blue-mid);}
+.card-badge.green{background:var(--green-bg);color:var(--green);}
+.card-badge.orange{background:#FEF0E6;color:var(--orange);}
+.card-badge.yellow{background:#FFFBEB;color:#92400E;}
+
+/* TWO COLUMN */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;}
+
+/* CHART BAR */
+.mini-bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:0.5rem;}
+.mbc-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.mbc-bar{width:100%;border-radius:4px 4px 0 0;min-width:10px;}
+.mbc-bar.b-blue{background:linear-gradient(to top,var(--blue),var(--blue-light));}
+.mbc-bar.b-orange{background:linear-gradient(to top,var(--orange),var(--orange-light));}
+.mbc-bar.b-green{background:linear-gradient(to top,#065F46,#10B981);}
+.mbc-bar.b-yellow{background:linear-gradient(to top,#B45309,#F5C518);}
+.mbc-label{font-size:0.6rem;color:var(--gray);font-weight:600;}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.data-table th{text-align:left;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;padding:0 1rem 10px;border-bottom:1.5px solid var(--gray-light);}
+.data-table td{padding:12px 1rem;border-bottom:1px solid var(--gray-light);color:#1E293B;vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--off);}
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:12px;}
+.status-badge.green{background:var(--green-bg);color:var(--green);}
+.status-badge.orange{background:#FEF0E6;color:var(--orange);}
+.status-badge.blue{background:var(--blue-pale);color:var(--blue-mid);}
+.status-badge.gray{background:var(--off);color:var(--gray);}
+.status-badge.red{background:var(--red-bg);color:var(--red);}
+
+/* DOC LIST */
+.doc-list{display:flex;flex-direction:column;gap:10px;}
+.doc-item{display:flex;align-items:center;gap:12px;padding:12px 1rem;background:var(--off);border-radius:12px;border:1px solid var(--gray-light);transition:border-color 0.2s;}
+.doc-item:hover{border-color:var(--blue-mid);}
+.doc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.doc-icon.pdf{background:#FEF2F2;}
+.doc-icon.word{background:var(--blue-pale);}
+.doc-icon.xls{background:var(--green-bg);}
+.doc-name{font-weight:600;font-size:0.875rem;color:#1E293B;}
+.doc-date{font-size:0.72rem;color:var(--gray);}
+.doc-dl{margin-left:auto;background:none;border:1px solid var(--gray-light);border-radius:8px;padding:5px 12px;font-size:0.75rem;font-weight:600;color:var(--blue-mid);cursor:pointer;transition:background 0.15s;}
+.doc-dl:hover{background:var(--blue-pale);}
+
+/* COMUNICAZIONI */
+.msg-list{display:flex;flex-direction:column;gap:12px;}
+.msg-item{padding:1.25rem;background:var(--off);border-radius:14px;border:1px solid var(--gray-light);border-left:4px solid var(--blue-mid);}
+.msg-item.unread{background:#fff;border-left-color:var(--orange);}
+.msg-item.priority{border-left-color:var(--yellow);}
+.msg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.msg-from{font-size:0.75rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;}
+.msg-date{font-size:0.72rem;color:var(--gray);}
+.msg-subject{font-weight:700;font-size:0.9rem;color:#1E293B;margin-bottom:4px;}
+.msg-preview{font-size:0.82rem;color:var(--gray);line-height:1.6;}
+.unread-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;display:inline-block;margin-right:6px;}
+
+/* GOVERNANCE */
+.timeline{display:flex;flex-direction:column;gap:0;position:relative;}
+.timeline::before{content:'';position:absolute;left:19px;top:24px;bottom:0;width:2px;background:var(--gray-light);}
+.tl-item{display:flex;gap:1rem;padding-bottom:1.5rem;position:relative;}
+.tl-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;border:2px solid #fff;}
+.tl-dot.blue{background:var(--blue-pale);}
+.tl-dot.orange{background:#FEF0E6;}
+.tl-dot.green{background:var(--green-bg);}
+.tl-dot.gray{background:var(--off);border-color:var(--gray-light);}
+.tl-content{flex:1;}
+.tl-title{font-weight:700;font-size:0.9rem;color:#1E293B;margin-bottom:2px;}
+.tl-date{font-size:0.72rem;color:var(--gray);margin-bottom:4px;}
+.tl-desc{font-size:0.82rem;color:var(--gray);line-height:1.6;}
+
+/* PROGRESS */
+.progress-row{margin-bottom:1rem;}
+.progress-header{display:flex;justify-content:space-between;margin-bottom:6px;}
+.progress-label{font-size:0.82rem;font-weight:600;color:#1E293B;}
+.progress-val{font-size:0.82rem;font-weight:700;color:var(--blue);}
+.progress-bar{height:8px;background:var(--gray-light);border-radius:8px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:8px;transition:width 1s ease;}
+.pf-blue{background:linear-gradient(to right,var(--blue),var(--blue-light));}
+.pf-orange{background:linear-gradient(to right,var(--orange),var(--orange-light));}
+.pf-green{background:linear-gradient(to right,#065F46,#10B981);}
+.pf-yellow{background:linear-gradient(to right,#B45309,#F5C518);}
+
+/* VOTAZIONE */
+.vote-card{background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:16px;padding:1.5rem;color:#fff;margin-bottom:1rem;}
+.vote-title{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;margin-bottom:4px;}
+.vote-desc{font-size:0.82rem;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.6;}
+.vote-btns{display:flex;gap:10px;}
+.vote-btn{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;transition:transform 0.15s,opacity 0.2s;}
+.vote-btn.yes{background:var(--yellow);color:var(--blue);}
+.vote-btn.no{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);}
+.vote-btn.astain{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.15);}
+.vote-btn:hover{transform:translateY(-1px);}
+.vote-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.vote-result{margin-top:12px;font-size:0.78rem;color:rgba(255,255,255,0.6);display:none;}
+.vote-result.show{display:block;}
+
+/* ENERGY GAUGE */
+.gauge-wrap{display:flex;justify-content:center;padding:1rem 0;}
+.gauge-arc{position:relative;width:160px;height:90px;overflow:hidden;}
+.gauge-val{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:800;color:var(--blue);}
+.gauge-sub{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:0.65rem;color:var(--gray);font-weight:600;white-space:nowrap;}
+
+/* MOBILE NAV TOGGLE */
+.mobile-nav-toggle{display:none;position:fixed;bottom:1rem;right:1rem;z-index:200;background:var(--blue);color:#fff;border:none;border-radius:50%;width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.2);}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .mobile-nav-toggle{display:flex;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .three-col{grid-template-columns:1fr;}
+}
+
+/* ROLE COLORS */
+.role-fondatore .user-avatar{background:var(--yellow);color:var(--blue);}
+.role-fondatore .user-role-badge{background:rgba(245,197,24,0.2);color:var(--yellow);}
+.role-cooperatore .user-avatar{background:var(--orange);}
+.role-cooperatore .user-role-badge{background:rgba(232,102,10,0.2);color:var(--orange-light);}
+.role-prosumer .user-avatar{background:#10B981;}
+.role-prosumer .user-role-badge{background:rgba(16,185,129,0.2);color:#10B981;}
+.role-consumer .user-avatar{background:var(--blue-light);}
+.role-consumer .user-role-badge{background:rgba(43,127,232,0.2);color:#93C5FD;}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:12px;font-size:0.85rem;margin-bottom:1rem;display:flex;align-items:flex-start;gap:10px;}
+.alert.info{background:var(--blue-pale);border:1px solid #BFDBFE;color:var(--blue);}
+.alert.success{background:var(--green-bg);border:1px solid #A7F3D0;color:var(--green);}
+.alert.warning{background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--gray-light);margin:1.25rem 0;}
+
+/* inline flex row */
+.row{display:flex;align-items:center;gap:8px;}
+.spacer{flex:1;}
+
+/* tag */
+.tag{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:2px 8px;border-radius:8px;}
+.tag.blue{background:var(--blue-pale);color:var(--blue-mid);}
+.tag.green{background:var(--green-bg);color:var(--green);}
+.tag.orange{background:#FEF0E6;color:var(--orange);}
+.tag.gray{background:var(--off);color:var(--gray);}
+
+/* responsive text */
+.text-sm{font-size:0.82rem;color:var(--gray);line-height:1.7;}
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN ========== -->
+<div id="login-screen">
+  <div class="login-rings">
+    <div class="lr"></div>
+    <div class="lr"></div>
+  </div>
+  <div style="width:100%;max-width:440px;padding:1rem;">
+    <div class="login-box">
+      <div class="login-logo">
+        <svg width="44" height="44" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="10" fill="#F5C518"/>
+          <g stroke="#F5C518" stroke-width="2" stroke-linecap="round">
+            <line x1="20" y1="4" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="36"/>
+            <line x1="4" y1="20" x2="8" y2="20"/><line x1="32" y1="20" x2="36" y2="20"/>
+            <line x1="8.5" y1="8.5" x2="11.5" y2="11.5"/><line x1="28.5" y1="28.5" x2="31.5" y2="31.5"/>
+            <line x1="31.5" y1="8.5" x2="28.5" y2="11.5"/><line x1="11.5" y1="28.5" x2="8.5" y2="31.5"/>
+          </g>
+          <circle cx="20" cy="20" r="6" fill="#0D3B6E"/>
+          <path d="M16 20 L20 15 L24 20 L20 25 Z" fill="#F5C518" opacity="0.8"/>
+        </svg>
+        <div>
+          <div class="login-logo-text">Enerbridge</div>
+          <div class="login-logo-sub">CER · Soc. Coop. a RL</div>
+        </div>
+      </div>
+      <div class="login-title">Area Riservata Soci</div>
+      <div class="login-subtitle">Accedi con il tuo Codice Socio e PIN personale</div>
+      <div class="login-error" id="login-error">Codice socio o PIN non valido. Riprova.</div>
+      <div class="login-field">
+        <label for="input-code">Codice Socio</label>
+        <input type="text" id="input-code" placeholder="Es. SF001" autocomplete="username" maxlength="10"/>
+      </div>
+      <div class="login-field">
+        <label for="input-pin">PIN</label>
+        <input type="password" id="input-pin" placeholder="4 cifre" maxlength="4" inputmode="numeric" autocomplete="current-password"/>
+      </div>
+      <button class="login-btn" onclick="doLogin()">Accedi all'area riservata</button>
+      <div class="login-demo">
+        <div class="login-demo-title">Accessi demo disponibili</div>
+        <div class="demo-grid">
+          <div class="demo-item" onclick="fillDemo('SF001','1234')">
+            <div class="demo-role">⭐ Socio Fondatore</div>
+            <div class="demo-cred">SF001 · PIN 1234</div>
+          </div>
+          <div class="demo-item" onclick="fillDemo('CO001','5678')">
+            <div class="demo-role">🤝 Cooperatore</div>
+            <div class="demo-cred">CO001 · PIN 5678</div>
+          </div>
+          <div class="demo-item" onclick="fillDemo('PS001','9012')">
+            <div class="demo-role">⚡ Prosumer</div>
+            <div class="demo-cred">PS001 · PIN 9012</div>
+          </div>
+          <div class="demo-item" onclick="fillDemo('CN001','3456')">
+            <div class="demo-role">🏠 Consumer</div>
+            <div class="demo-cred">CN001 · PIN 3456</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="CER_Enerbridge_website.html" class="back-link">← Torna al sito pubblico</a>
+  </div>
+</div>
+
+<!-- ========== APP ========== -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="10" fill="#F5C518"/>
+        <g stroke="#F5C518" stroke-width="2" stroke-linecap="round">
+          <line x1="20" y1="4" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="36"/>
+          <line x1="4" y1="20" x2="8" y2="20"/><line x1="32" y1="20" x2="36" y2="20"/>
+        </g>
+        <circle cx="20" cy="20" r="6" fill="#0D3B6E"/>
+      </svg>
+      <div>
+        <div class="sidebar-logo-text">Enerbridge</div>
+        <div class="sidebar-logo-sub">Area Riservata</div>
+      </div>
+    </div>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sb-avatar"></div>
+      <div class="user-name" id="sb-name"></div>
+      <div class="user-role-badge" id="sb-role-badge"></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Esci dall'area riservata
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-right">
+        <div class="notif-btn" title="Notifiche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="notif-dot"></div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--gray);font-weight:600;" id="topbar-user"></div>
+      </div>
+    </div>
+    <div class="content" id="main-content"></div>
+  </div>
+
+  <button class="mobile-nav-toggle" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</div>
+
+<script>
+// ============================
+// DATA MODEL
+// ============================
+const USERS = {
+  SF001: { pin:'1234', name:'Maria Russo', initials:'MR', role:'fondatore', roleLabel:'Socio Fondatore', quota:'€ 5.000', pod:'IT001E12345678', comune:'Campobello di Licata' },
+  CO001: { pin:'5678', name:'Giuseppe Greco', initials:'GG', role:'cooperatore', roleLabel:'Cooperatore', quota:'€ 500', pod:'IT001E87654321', comune:'Campobello di Licata' },
+  PS001: { pin:'9012', name:'Antonio Ferrara', initials:'AF', role:'prosumer', roleLabel:'Prosumer', quota:'€ 1.000', pod:'IT001E11223344', comune:'Naro' },
+  CN001: { pin:'3456', name:'Lucia Bianchi', initials:'LB', role:'consumer', roleLabel:'Consumer', quota:'€ 200', pod:'IT001E55667788', comune:'Campobello di Licata' },
+};
+
+const NAV_ITEMS = {
+  fondatore: [
+    { id:'dashboard', label:'Dashboard', icon:'grid', section:'Principale' },
+    { id:'energia', label:'Energia impianto', icon:'bolt', section:'Principale' },
+    { id:'governance', label:'Governance', icon:'users', section:'Cooperativa', badge:'2' },
+    { id:'documenti', label:'Documenti', icon:'file', section:'Cooperativa' },
+    { id:'comunicazioni', label:'Comunicazioni', icon:'mail', section:'Cooperativa', badge:'3' },
+    { id:'bilancio', label:'Bilancio & Finanza', icon:'chart', section:'Amministrazione' },
+  ],
+  cooperatore: [
+    { id:'dashboard', label:'Dashboard', icon:'grid', section:'Principale' },
+    { id:'energia', label:'La mia energia', icon:'bolt', section:'Principale' },
+    { id:'governance', label:'Governance', icon:'users', section:'Cooperativa', badge:'1' },
+    { id:'documenti', label:'Documenti', icon:'file', section:'Cooperativa' },
+    { id:'comunicazioni', label:'Comunicazioni', icon:'mail', section:'Cooperativa', badge:'2' },
+  ],
+  prosumer: [
+    { id:'dashboard', label:'Dashboard', icon:'grid', section:'Principale' },
+    { id:'energia', label:'Produzione & Consumo', icon:'bolt', section:'Energetico' },
+    { id:'documenti', label:'Documenti tecnici', icon:'file', section:'Energetico' },
+    { id:'comunicazioni', label:'Comunicazioni', icon:'mail', section:'CER', badge:'1' },
+    { id:'governance', label:'Assemblee', icon:'users', section:'CER' },
+  ],
+  consumer: [
+    { id:'dashboard', label:'Dashboard', icon:'grid', section:'Principale' },
+    { id:'energia', label:'I miei consumi', icon:'bolt', section:'Energetico' },
+    { id:'documenti', label:'Documenti', icon:'file', section:'CER' },
+    { id:'comunicazioni', label:'Comunicazioni', icon:'mail', section:'CER', badge:'1' },
+  ],
+};
+
+const ICONS = {
+  grid:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+  bolt:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  users:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`,
+  file:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>`,
+  mail:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  chart:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+};
+
+// ============================
+// AUTH
+// ============================
+let currentUser = null;
+
+function fillDemo(code, pin) {
+  document.getElementById('input-code').value = code;
+  document.getElementById('input-pin').value = pin;
+}
+
+function doLogin() {
+  const code = document.getElementById('input-code').value.trim().toUpperCase();
+  const pin = document.getElementById('input-pin').value.trim();
+  const err = document.getElementById('login-error');
+  if (USERS[code] && USERS[code].pin === pin) {
+    err.style.display = 'none';
+    currentUser = { code, ...USERS[code] };
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    buildApp();
+  } else {
+    err.style.display = 'block';
+    document.getElementById('input-pin').value = '';
+    document.getElementById('input-pin').focus();
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
+});
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('input-code').value = '';
+  document.getElementById('input-pin').value = '';
+  document.getElementById('main-content').innerHTML = '';
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ============================
+// BUILD APP
+// ============================
+function buildApp() {
+  const u = currentUser;
+  const app = document.getElementById('app');
+  app.className = '';
+  app.classList.add('role-' + u.role);
+
+  // avatar
+  document.getElementById('sb-avatar').textContent = u.initials;
+  document.getElementById('sb-name').textContent = u.name;
+  document.getElementById('sb-role-badge').textContent = u.roleLabel;
+  document.getElementById('topbar-user').textContent = u.name;
+
+  // nav
+  buildNav(u.role);
+  showPanel('dashboard');
+}
+
+function buildNav(role) {
+  const nav = document.getElementById('sidebar-nav');
+  const items = NAV_ITEMS[role];
+  let currentSection = '';
+  let html = '';
+  items.forEach(item => {
+    if (item.section !== currentSection) {
+      currentSection = item.section;
+      html += `<div class="nav-section-label">${item.section}</div>`;
+    }
+    const badge = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
+    html += `<div class="sidebar-nav-item" id="nav-${item.id}" onclick="showPanel('${item.id}')">
+      <span class="nav-icon">${ICONS[item.icon]}</span>
+      ${item.label}${badge}
+    </div>`;
+  });
+  nav.innerHTML = html;
+}
+
+// ============================
+// PANELS
+// ============================
+const PANEL_TITLES = {
+  dashboard:'Dashboard', energia:'Energia', governance:'Governance',
+  documenti:'Documenti', comunicazioni:'Comunicazioni', bilancio:'Bilancio & Finanza'
+};
+
+function showPanel(id) {
+  document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('topbar-title').textContent = PANEL_TITLES[id] || id;
+  document.getElementById('main-content').innerHTML = buildPanel(id);
+  if (document.getElementById('sidebar').classList.contains('open')) {
+    document.getElementById('sidebar').classList.remove('open');
+  }
+  animateProgressBars();
+}
+
+function buildPanel(id) {
+  const role = currentUser.role;
+  switch(id) {
+    case 'dashboard':   return dashboardPanel(role);
+    case 'energia':     return energiaPanel(role);
+    case 'governance':  return governancePanel(role);
+    case 'documenti':   return documentiPanel(role);
+    case 'comunicazioni': return comunicazioniPanel(role);
+    case 'bilancio':    return bilancioPanel();
+    default: return '<p>Sezione in arrivo.</p>';
+  }
+}
+
+// ============================
+// DASHBOARD PANEL
+// ============================
+function dashboardPanel(role) {
+  const u = currentUser;
+  const kpiSets = {
+    fondatore: [
+      { label:'Quota societaria', value:'€ 5.000', sub:'Versata il 12/03/2025', cls:'', icon:'💼' },
+      { label:'Energia condivisa (mag)', value:'4.820', sub:'kWh · +12% rispetto ad apr', cls:'orange', icon:'⚡' },
+      { label:'Incentivo GSE stimato', value:'€ 530', sub:'Competenza maggio 2025', cls:'green', icon:'💰' },
+      { label:'Prossima assemblea', value:'18 giu', sub:'Ordine del giorno disponibile', cls:'yellow', icon:'📅' },
+    ],
+    cooperatore: [
+      { label:'La mia quota', value:'€ 500', sub:'Codice: CO001', cls:'', icon:'💼' },
+      { label:'Energia ricevuta (mag)', value:'320', sub:'kWh · risparmio stimato', cls:'orange', icon:'⚡' },
+      { label:'Risparmio bolletta', value:'€ 38', sub:'Mese corrente vs mercato', cls:'green', icon:'💰' },
+      { label:'Prossima assemblea', value:'18 giu', sub:'Ore 18:00 – sede CER', cls:'yellow', icon:'📅' },
+    ],
+    prosumer: [
+      { label:'Produzione (mag)', value:'92.400', sub:'kWh – impianto Gibbesi', cls:'', icon:'☀️' },
+      { label:'Quota energia condivisa', value:'68.200', sub:'kWh – distribuiti ai soci', cls:'orange', icon:'⚡' },
+      { label:'Immissione in rete', value:'24.200', sub:'kWh – tariffa RID', cls:'green', icon:'🔌' },
+      { label:'Incentivo GSE (mag)', value:'€ 7.502', sub:'Accredito stimato al 30/06', cls:'yellow', icon:'💰' },
+    ],
+    consumer: [
+      { label:'Energia ricevuta (mag)', value:'280', sub:'kWh dalla CER', cls:'', icon:'🏠' },
+      { label:'Risparmio bolletta', value:'€ 31', sub:'vs tariffa mercato tutelato', cls:'orange', icon:'💰' },
+      { label:'CO₂ evitata (mag)', value:'130', sub:'kg – equivale a 6 alberi', cls:'green', icon:'🌿' },
+      { label:'Quota mensile CER', value:'€ 8', sub:'Contributo gestione', cls:'yellow', icon:'📋' },
+    ],
+  };
+
+  const kpis = kpiSets[role].map(k => `
+    <div class="kpi-card">
+      <div class="kpi-label">${k.icon} ${k.label}</div>
+      <div class="kpi-value ${k.cls}">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>`).join('');
+
+  const alertMap = {
+    fondatore: `<div class="alert info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <span>Assemblea straordinaria convocata per il <strong>18 giugno 2025</strong>. Ordine del giorno: approvazione bilancio 2024 e piano investimenti 2025-2030.</span></div>`,
+    cooperatore: `<div class="alert success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> <span>La tua adesione è attiva. Il primo accredito GSE è previsto per <strong>luglio 2025</strong>.</span></div>`,
+    prosumer: `<div class="alert warning"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg> <span>Manutenzione programmata inverter il <strong>5 giugno 2025</strong>. Produzione ridotta stimata: 4h.</span></div>`,
+    consumer: `<div class="alert success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> <span>Risparmio cumulato da inizio 2025: <strong>€ 154</strong>. Ottimo risultato! La CER produce il 34% della tua energia mensile.</span></div>`,
+  };
+
+  const charts = {
+    fondatore: barSection('Producibilità impianto (MWh) – 2025',
+      ['Gen','Feb','Mar','Apr','Mag','Giu'],
+      [68,78,100,118,92,0], 'b-blue',
+      [0,0,0,0,0,0], null),
+    cooperatore: barSection('Energia ricevuta (kWh) – 2025',
+      ['Gen','Feb','Mar','Apr','Mag','Giu'],
+      [190,210,280,310,320,0], 'b-orange',
+      [0,0,0,0,0,0], null),
+    prosumer: barSection('Produzione (MWh) – vs anno precedente',
+      ['Gen','Feb','Mar','Apr','Mag'],
+      [56,65,84,99,92], 'b-green',
+      [52,60,79,95,88], 'b-yellow'),
+    consumer: barSection('Energia CER ricevuta (kWh) – 2025',
+      ['Gen','Feb','Mar','Apr','Mag','Giu'],
+      [140,160,200,240,280,0], 'b-blue',
+      [0,0,0,0,0,0], null),
+  };
+
+  const progressMap = {
+    fondatore: progressSection('Obiettivi CER 2025',[
+      {label:'Soci attivi', val:76, pct:76, cls:'pf-blue'},
+      {label:'Energia condivisa vs obiettivo', val:68, pct:68, cls:'pf-orange'},
+      {label:'Incentivi GSE incassati', val:41, pct:41, cls:'pf-green'},
+      {label:'Riduzione CO₂ obiettivo', val:55, pct:55, cls:'pf-yellow'},
+    ]),
+    cooperatore: progressSection('Il mio contributo CER',[
+      {label:'Quota energia ricevuta', val:22, pct:22, cls:'pf-orange'},
+      {label:'Consumo coperto dalla CER', val:34, pct:34, cls:'pf-blue'},
+    ]),
+    prosumer: progressSection('Performance impianto 2025',[
+      {label:'Utilizzo capacità', val:82, pct:82, cls:'pf-green'},
+      {label:'Energia condivisa vs prodotta', val:74, pct:74, cls:'pf-orange'},
+      {label:'Immissione netta in rete', val:26, pct:26, cls:'pf-blue'},
+    ]),
+    consumer: progressSection('Copertura energetica CER',[
+      {label:'Consumi coperti dalla CER', val:34, pct:34, cls:'pf-orange'},
+      {label:'Risparmio annuo cumulato', val:58, pct:58, cls:'pf-green'},
+    ]),
+  };
+
+  return `
+    <div class="kpi-grid">${kpis}</div>
+    ${alertMap[role]}
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Andamento mensile</div><span class="card-badge blue">2025</span></div>
+        <div class="card-body">${charts[role]}</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Indicatori</div></div>
+        <div class="card-body">${progressMap[role]}</div>
+      </div>
+    </div>
+    ${role === 'fondatore' ? fondatoreSummary() : ''}
+    ${role === 'prosumer' ? prosumerLive() : ''}
+  `;
+}
+
+function fondatoreSummary() {
+  return `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Composizione soci</div><span class="card-badge green">Aggiornato maggio 2025</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Categoria</th><th>N° soci</th><th>Quota media</th><th>Stato</th></tr></thead>
+        <tbody>
+          <tr><td>Soci Fondatori</td><td><strong>5</strong></td><td>€ 5.000</td><td><span class="status-badge green">✓ Attivi</span></td></tr>
+          <tr><td>Cooperatori</td><td><strong>42</strong></td><td>€ 500</td><td><span class="status-badge green">✓ Attivi</span></td></tr>
+          <tr><td>Prosumer</td><td><strong>3</strong></td><td>€ 1.000</td><td><span class="status-badge green">✓ Attivi</span></td></tr>
+          <tr><td>Consumer</td><td><strong>118</strong></td><td>€ 200</td><td><span class="status-badge blue">In crescita</span></td></tr>
+          <tr><td>In attesa di verifica</td><td><strong>14</strong></td><td>–</td><td><span class="status-badge orange">⏳ Pendenti</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function prosumerLive() {
+  return `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Stato impianto in tempo reale</div><span class="status-badge green" style="font-size:0.72rem;">● Operativo</span></div>
+    <div class="card-body">
+      <div class="three-col">
+        <div style="text-align:center;padding:1rem;background:var(--off);border-radius:12px;">
+          <div style="font-size:0.72rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Potenza attuale</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--green);">648 <span style="font-size:1rem;font-weight:400;color:var(--gray);">kW</span></div>
+          <div style="font-size:0.72rem;color:var(--green-mid);margin-top:4px;">81% capacità</div>
+        </div>
+        <div style="text-align:center;padding:1rem;background:var(--off);border-radius:12px;">
+          <div style="font-size:0.72rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Irraggiamento</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--yellow);">842 <span style="font-size:1rem;font-weight:400;color:var(--gray);">W/m²</span></div>
+          <div style="font-size:0.72rem;color:#B45309;margin-top:4px;">Ottimale</div>
+        </div>
+        <div style="text-align:center;padding:1rem;background:var(--off);border-radius:12px;">
+          <div style="font-size:0.72rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Temp. moduli</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);">44 <span style="font-size:1rem;font-weight:400;color:var(--gray);">°C</span></div>
+          <div style="font-size:0.72rem;color:var(--orange-mid);margin-top:4px;">Nella norma</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============================
+// ENERGIA PANEL
+// ============================
+function energiaPanel(role) {
+  if (role === 'fondatore') return energiaFondatore();
+  if (role === 'cooperatore') return energiaCooperatore();
+  if (role === 'prosumer') return energiaProsumer();
+  return energiaConsumer();
+}
+
+function energiaFondatore() {
+  return `
+  <div class="alert info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <span>Dati aggiornati al 31 maggio 2025. Prossimo aggiornamento: 30 giugno 2025.</span></div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">⚡ Produzione totale 2025</div><div class="kpi-value">456</div><div class="kpi-sub">MWh · gen–mag 2025</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔄 Energia condivisa 2025</div><div class="kpi-value orange">337</div><div class="kpi-sub">MWh · 74% del totale</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔌 Immissione in rete</div><div class="kpi-value green">119</div><div class="kpi-sub">MWh · tariffa RID</div></div>
+    <div class="kpi-card"><div class="kpi-label">💰 Ricavi incentivi GSE</div><div class="kpi-value yellow">€ 37.070</div><div class="kpi-sub">Cumulato gen–mag 2025</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Producibilità mensile impianto – 2025</div><span class="card-badge blue">800 kWp · Gibbesi, Naro AG</span></div>
+    <div class="card-body">
+      ${barSection('MWh prodotti per mese',['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],[68,78,100,118,92,0,0,0,0,0,0,0],'b-blue',[0,0,0,0,0,140,140,136,112,90,72,60],'b-orange')}
+      <div class="text-sm" style="margin-top:1rem;">🔵 Consuntivo · 🟠 Stima secondo semestre (budget annuo: 1.100 MWh)</div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Ripartizione energia maggio</div></div>
+      <div class="card-body">
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Energia condivisa soci</span><span class="progress-val">68.200 kWh (74%)</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:74%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Immessa in rete (RID)</span><span class="progress-val">23.800 kWh (26%)</span></div><div class="progress-bar"><div class="progress-fill pf-orange" style="width:26%"></div></div></div>
+        <div class="divider"></div>
+        <div class="row"><div class="kpi-label">Totale prodotto maggio 2025</div><div class="spacer"></div><strong>92.000 kWh</strong></div>
+        <div class="row" style="margin-top:8px;"><div class="kpi-label">Performance ratio</div><div class="spacer"></div><strong style="color:var(--green);">81,4%</strong></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Distribuzione per categoria socio</div></div>
+      <div class="card-body">
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Consumer (118 soci)</span><span class="progress-val">34.100 kWh</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:50%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Cooperatori (42 soci)</span><span class="progress-val">22.400 kWh</span></div><div class="progress-bar"><div class="progress-fill pf-orange" style="width:33%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Fondatori (5 soci)</span><span class="progress-val">9.600 kWh</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:14%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Prosumer autoconsumato</span><span class="progress-val">2.100 kWh</span></div><div class="progress-bar"><div class="progress-fill pf-yellow" style="width:3%"></div></div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function energiaCooperatore() {
+  return `
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">🏠 Il mio POD</div><div class="kpi-value" style="font-size:1rem;margin-top:4px;">IT001E87654321</div><div class="kpi-sub">Comune: Campobello di Licata</div></div>
+    <div class="kpi-card"><div class="kpi-label">⚡ Energia ricevuta (mag)</div><div class="kpi-value orange">320</div><div class="kpi-sub">kWh dalla CER</div></div>
+    <div class="kpi-card"><div class="kpi-label">💰 Risparmio bolletta (mag)</div><div class="kpi-value green">€ 38</div><div class="kpi-sub">vs tariffa mercato</div></div>
+    <div class="kpi-card"><div class="kpi-label">📊 Quota CER sul totale</div><div class="kpi-value yellow">34%</div><div class="kpi-sub">dei miei consumi mensili</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Energia CER ricevuta (kWh) – 2025</div></div>
+    <div class="card-body">${barSection('',['Gen','Feb','Mar','Apr','Mag'],[190,210,280,310,320],'b-orange',[0,0,0,0,0],null)}</div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Estratto conto incentivi</div></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Mese</th><th>kWh CER</th><th>Incentivo €</th><th>Stato</th></tr></thead>
+          <tbody>
+            <tr><td>Gennaio 2025</td><td>190</td><td>€ 20,90</td><td><span class="status-badge green">Accreditato</span></td></tr>
+            <tr><td>Febbraio 2025</td><td>210</td><td>€ 23,10</td><td><span class="status-badge green">Accreditato</span></td></tr>
+            <tr><td>Marzo 2025</td><td>280</td><td>€ 30,80</td><td><span class="status-badge green">Accreditato</span></td></tr>
+            <tr><td>Aprile 2025</td><td>310</td><td>€ 34,10</td><td><span class="status-badge green">Accreditato</span></td></tr>
+            <tr><td>Maggio 2025</td><td>320</td><td>€ 35,20</td><td><span class="status-badge orange">In elaborazione</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Copertura energetica</div></div>
+      <div class="card-body">
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Coperto dalla CER</span><span class="progress-val">34%</span></div><div class="progress-bar"><div class="progress-fill pf-orange" style="width:34%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Rete nazionale</span><span class="progress-val">66%</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:66%"></div></div></div>
+        <div class="divider"></div>
+        <div class="text-sm">Aumentando i tuoi consumi nelle ore solari (9:00–16:00) puoi incrementare la quota CER fino al <strong>48%</strong>.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function energiaProsumer() {
+  return `
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">☀️ Produzione maggio</div><div class="kpi-value">92.400</div><div class="kpi-sub">kWh · impianto 800 kWp</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔄 Energia condivisa</div><div class="kpi-value orange">68.200</div><div class="kpi-sub">kWh · distribuiti ai soci</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔌 Immissione RID</div><div class="kpi-value green">24.200</div><div class="kpi-sub">kWh · valorizzazione rete</div></div>
+    <div class="kpi-card"><div class="kpi-label">💰 Incentivo GSE maggio</div><div class="kpi-value yellow">€ 7.502</div><div class="kpi-sub">tariffa 110 €/MWh</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Produzione vs anno precedente (MWh)</div></div>
+      <div class="card-body">${barSection('',['Gen','Feb','Mar','Apr','Mag'],[56,65,84,99,92],'b-green',[52,60,79,95,88],'b-yellow')}
+      <div class="text-sm" style="margin-top:8px;">🟢 2025 · 🟡 2024</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Performance inverter</div></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Inverter</th><th>kWh/giorno</th><th>Stato</th></tr></thead>
+          <tbody>
+            <tr><td>INV-01 (100 kW)</td><td>820</td><td><span class="status-badge green">● OK</span></td></tr>
+            <tr><td>INV-02 (100 kW)</td><td>815</td><td><span class="status-badge green">● OK</span></td></tr>
+            <tr><td>INV-03 (100 kW)</td><td>808</td><td><span class="status-badge green">● OK</span></td></tr>
+            <tr><td>INV-04 (100 kW)</td><td>792</td><td><span class="status-badge green">● OK</span></td></tr>
+            <tr><td>INV-05 (100 kW)</td><td>841</td><td><span class="status-badge green">● OK</span></td></tr>
+            <tr><td>INV-06 (100 kW)</td><td>799</td><td><span class="status-badge orange">⚠ Manutenzione</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Contabilità energetica 2025 – cumulato</div></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Mese</th><th>Produzione (MWh)</th><th>Condivisa (MWh)</th><th>RID (MWh)</th><th>Incentivo GSE</th></tr></thead>
+        <tbody>
+          <tr><td>Gennaio</td><td>68</td><td>51</td><td>17</td><td>€ 5.610</td></tr>
+          <tr><td>Febbraio</td><td>78</td><td>58</td><td>20</td><td>€ 6.380</td></tr>
+          <tr><td>Marzo</td><td>100</td><td>74</td><td>26</td><td>€ 8.140</td></tr>
+          <tr><td>Aprile</td><td>118</td><td>87</td><td>31</td><td>€ 9.570</td></tr>
+          <tr><td>Maggio</td><td>92,4</td><td>68,2</td><td>24,2</td><td>€ 7.502</td></tr>
+          <tr style="font-weight:700;background:var(--off);"><td>Totale 2025</td><td>456,4</td><td>338,2</td><td>118,2</td><td>€ 37.202</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function energiaConsumer() {
+  return `
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">🏠 Il mio POD</div><div class="kpi-value" style="font-size:1rem;margin-top:4px;">IT001E55667788</div><div class="kpi-sub">Campobello di Licata</div></div>
+    <div class="kpi-card"><div class="kpi-label">⚡ Energia CER (mag)</div><div class="kpi-value orange">280</div><div class="kpi-sub">kWh · 34% dei tuoi consumi</div></div>
+    <div class="kpi-card"><div class="kpi-label">💰 Risparmio (mag)</div><div class="kpi-value green">€ 31</div><div class="kpi-sub">vs tariffa tutelata</div></div>
+    <div class="kpi-card"><div class="kpi-label">🌿 CO₂ evitata (mag)</div><div class="kpi-value yellow">130</div><div class="kpi-sub">kg – 6 alberi equivalenti</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Bollette e rendiconto CER 2025</div></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Periodo</th><th>Consumi totali</th><th>Quota CER</th><th>Risparmio</th><th>Documento</th></tr></thead>
+        <tbody>
+          <tr><td>Gennaio 2025</td><td>820 kWh</td><td>140 kWh</td><td>€ 15,40</td><td><span class="tag blue">PDF</span></td></tr>
+          <tr><td>Febbraio 2025</td><td>760 kWh</td><td>160 kWh</td><td>€ 17,60</td><td><span class="tag blue">PDF</span></td></tr>
+          <tr><td>Marzo 2025</td><td>840 kWh</td><td>200 kWh</td><td>€ 22,00</td><td><span class="tag blue">PDF</span></td></tr>
+          <tr><td>Aprile 2025</td><td>790 kWh</td><td>240 kWh</td><td>€ 26,40</td><td><span class="tag blue">PDF</span></td></tr>
+          <tr><td>Maggio 2025</td><td>820 kWh</td><td>280 kWh</td><td>€ 30,80</td><td><span class="tag orange">In elaboraz.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Risparmio cumulato 2025</div></div>
+    <div class="card-body">${barSection('€ risparmiati per mese',['Gen','Feb','Mar','Apr','Mag'],[15,18,22,26,31],'b-green',[0,0,0,0,0],null)}</div>
+  </div>`;
+}
+
+// ============================
+// GOVERNANCE PANEL
+// ============================
+function governancePanel(role) {
+  const voteSection = role !== 'consumer' ? `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Votazioni aperte</div><span class="card-badge orange">1 in corso</span></div>
+    <div class="card-body">
+      <div class="vote-card">
+        <div class="vote-title">Approvazione Bilancio Consuntivo 2024</div>
+        <div class="vote-desc">Il Consiglio di Amministrazione sottopone all'approvazione dell'Assemblea il bilancio consuntivo dell'esercizio 2024, con utile netto di € 12.400 da destinare alla riserva legale e al fondo di sviluppo CER.</div>
+        <div class="vote-btns">
+          <button class="vote-btn yes" onclick="castVote(this,'yes')">✓ Favorevole</button>
+          <button class="vote-btn no" onclick="castVote(this,'no')">✗ Contrario</button>
+          <button class="vote-btn astain" onclick="castVote(this,'astain')">– Astenuto</button>
+        </div>
+        <div class="vote-result" id="vote-result-1">Il tuo voto è stato registrato.</div>
+      </div>
+    </div>
+  </div>` : '';
+
+  const assemblee = `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Assemblee</div></div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot orange"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8660A" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="tl-content">
+            <div class="tl-title">Assemblea Straordinaria – 18 giugno 2025</div>
+            <div class="tl-date">Ore 18:00 · Sede CER, Via Barone La Lomia 29</div>
+            <div class="tl-desc">OdG: 1) Approvazione bilancio 2024 · 2) Piano investimenti 2025-2030 · 3) Modifica statuto art. 14 · 4) Varie ed eventuali</div>
+            <div style="margin-top:8px;"><span class="tag orange">Convocazione disponibile</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="tl-content">
+            <div class="tl-title">Assemblea Ordinaria – 28 marzo 2025</div>
+            <div class="tl-date">Svolta in presenza · 52 soci partecipanti</div>
+            <div class="tl-desc">Approvazione piano di attività 2025, nomina responsabile energia, aggiornamento regolamento interno.</div>
+            <div style="margin-top:8px;"><span class="tag green">Verbale disponibile</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg></div>
+          <div class="tl-content">
+            <div class="tl-title">Assemblea Costituente – 15 gennaio 2025</div>
+            <div class="tl-date">Atto notarile · Studio Not. Rizzo, Agrigento</div>
+            <div class="tl-desc">Costituzione CER Enerbridge Soc. Coop. a RL. Approvazione statuto, elezione CdA, nomina revisore dei conti.</div>
+            <div style="margin-top:8px;"><span class="tag blue">Atto disponibile</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const cdaSection = (role === 'fondatore') ? `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Consiglio di Amministrazione</div><span class="card-badge blue">Mandato 2025-2028</span></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Nominativo</th><th>Carica</th><th>Dal</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Maria Russo</strong></td><td>Presidente CdA</td><td>15/01/2025</td></tr>
+          <tr><td>Franco Bellini</td><td>Vicepresidente</td><td>15/01/2025</td></tr>
+          <tr><td>Carmela Vitale</td><td>Consigliere</td><td>15/01/2025</td></tr>
+          <tr><td>Dott. Paolo Ricci</td><td>Revisore dei conti</td><td>15/01/2025</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>` : '';
+
+  return voteSection + assemblee + cdaSection;
+}
+
+// ============================
+// DOCUMENTI PANEL
+// ============================
+function documentiPanel(role) {
+  const docsMap = {
+    fondatore: [
+      { icon:'pdf', name:'Statuto CER Enerbridge – rev. 2025', date:'15 gen 2025', tipo:'Istituzionale' },
+      { icon:'pdf', name:'Atto Costitutivo – Not. Rizzo', date:'15 gen 2025', tipo:'Istituzionale' },
+      { icon:'xls', name:'Bilancio Consuntivo 2024', date:'10 mar 2025', tipo:'Finanziario' },
+      { icon:'pdf', name:'Contratto GSE – Tariffa incentivante', date:'20 feb 2025', tipo:'GSE' },
+      { icon:'pdf', name:'Verbale Assemblea 28/03/2025', date:'02 apr 2025', tipo:'Governance' },
+      { icon:'word', name:'Piano Investimenti 2025-2030', date:'05 apr 2025', tipo:'Strategico' },
+      { icon:'pdf', name:'Autorizzazione Terna – Connessione', date:'10 dic 2024', tipo:'Tecnico' },
+      { icon:'xls', name:'Business Plan 25 anni – CER', date:'15 gen 2025', tipo:'Finanziario' },
+      { icon:'pdf', name:'Perizia tecnica impianto 800 kWp', date:'20 nov 2024', tipo:'Tecnico' },
+      { icon:'pdf', name:'Polizza RCT/RCO impianto', date:'01 feb 2025', tipo:'Assicurativo' },
+    ],
+    cooperatore: [
+      { icon:'pdf', name:'Statuto CER Enerbridge', date:'15 gen 2025', tipo:'Istituzionale' },
+      { icon:'pdf', name:'Contratto di adesione – CO001', date:'20 feb 2025', tipo:'Personale' },
+      { icon:'pdf', name:'Regolamento interno soci', date:'28 mar 2025', tipo:'Regolamento' },
+      { icon:'pdf', name:'Verbale Assemblea 28/03/2025', date:'02 apr 2025', tipo:'Governance' },
+      { icon:'xls', name:'Estratto conto incentivi 2025', date:'01 mag 2025', tipo:'Finanziario' },
+    ],
+    prosumer: [
+      { icon:'pdf', name:'Contratto GSE – Tariffa incentivante', date:'20 feb 2025', tipo:'GSE' },
+      { icon:'pdf', name:'Autorizzazione Terna – Punto di immissione', date:'10 dic 2024', tipo:'Tecnico' },
+      { icon:'word', name:'Specifiche tecniche impianto 800 kWp', date:'15 nov 2024', tipo:'Tecnico' },
+      { icon:'pdf', name:'Certificato CEL – Dichiarazione di conformità', date:'05 jan 2025', tipo:'Tecnico' },
+      { icon:'xls', name:'Piano di monitoraggio O&M 2025', date:'20 gen 2025', tipo:'O&M' },
+      { icon:'pdf', name:'Polizza tutti i rischi impianto', date:'01 feb 2025', tipo:'Assicurativo' },
+    ],
+    consumer: [
+      { icon:'pdf', name:'Contratto di adesione CER – CN001', date:'05 mar 2025', tipo:'Personale' },
+      { icon:'pdf', name:'Statuto CER (estratto soci)', date:'15 gen 2025', tipo:'Istituzionale' },
+      { icon:'pdf', name:'Rendiconto incentivi gen–apr 2025', date:'01 mag 2025', tipo:'Finanziario' },
+      { icon:'pdf', name:'Informativa privacy GDPR', date:'15 gen 2025', tipo:'Legale' },
+    ],
+  };
+
+  const iconMap = {
+    pdf: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+    word:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>`,
+    xls: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="10" y2="17"/><line x1="12" y1="13" x2="10" y2="17"/></svg>`,
+  };
+
+  const items = (docsMap[role] || []).map(d => `
+    <div class="doc-item">
+      <div class="doc-icon ${d.icon}">${iconMap[d.icon]}</div>
+      <div style="flex:1;">
+        <div class="doc-name">${d.name}</div>
+        <div class="doc-date">${d.date} · <span class="tag gray">${d.tipo}</span></div>
+      </div>
+      <button class="doc-dl" onclick="alert('Funzione di download disponibile nella versione con backend.')">↓ Scarica</button>
+    </div>`).join('');
+
+  return `
+  <div class="alert info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <span>I documenti sono disponibili in sola lettura. Per richiedere copie ufficiali contattare la segreteria: <strong>cerenerbridgesoccooparl@gmail.com</strong></span></div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Archivio documenti</div><span class="card-badge blue">${(docsMap[role]||[]).length} file</span></div>
+    <div class="card-body"><div class="doc-list">${items}</div></div>
+  </div>`;
+}
+
+// ============================
+// COMUNICAZIONI PANEL
+// ============================
+function comunicazioniPanel(role) {
+  const msgs = {
+    fondatore: [
+      { from:'CdA Enerbridge', subject:'Convocazione Assemblea Straordinaria – 18 giugno 2025', preview:'Si convoca l\'assemblea straordinaria dei soci per approvazione bilancio 2024 e piano investimenti...', date:'28 mag 2025', unread:true, priority:true },
+      { from:'GSE – Gestore Servizi Energetici', subject:'Conferma attivazione tariffa incentivante CER', preview:'Si conferma l\'avvenuta attivazione della tariffa incentivante per la CER Enerbridge con decorrenza...', date:'15 mag 2025', unread:true },
+      { from:'Responsabile O&M', subject:'Report manutenzione maggio 2025 – impianto Gibbesi', preview:'Si comunica l\'esito della manutenzione ordinaria eseguita in data 8 maggio 2025 presso l\'impianto...', date:'10 mag 2025', unread:true },
+      { from:'Segreteria CER', subject:'Approvazione nuovi 14 soci consumer', preview:'Il Consiglio di Amministrazione ha deliberato l\'accettazione di 14 nuove domande di adesione...', date:'02 mag 2025', unread:false },
+      { from:'Studio Tributario Rizzo', subject:'Adempimenti fiscali CER – scadenze giugno 2025', preview:'Si ricordano le scadenze fiscali relative alla gestione tributaria della cooperativa per il mese di...', date:'25 apr 2025', unread:false },
+    ],
+    cooperatore: [
+      { from:'CdA Enerbridge', subject:'Convocazione Assemblea Straordinaria – 18 giugno 2025', preview:'Si convoca l\'assemblea straordinaria dei soci per approvazione bilancio e piano investimenti...', date:'28 mag 2025', unread:true, priority:true },
+      { from:'Segreteria CER', subject:'Accredito incentivi GSE – aprile 2025', preview:'Si comunica l\'avvenuto accredito degli incentivi GSE relativi al mese di aprile 2025. Importo: €34,10...', date:'10 mag 2025', unread:true },
+      { from:'Newsletter CER', subject:'Aggiornamento CER – Maggio 2025', preview:'Impianto: 92.400 kWh prodotti · Nuovi soci: 14 consumer · Risparmio medio socio: €31/mese...', date:'05 mag 2025', unread:false },
+    ],
+    prosumer: [
+      { from:'Responsabile O&M', subject:'Manutenzione programmata INV-06 – 5 giugno 2025', preview:'Si comunica che in data 5 giugno 2025 verrà eseguita manutenzione all\'inverter INV-06. Riduzione produzione stimata...', date:'30 mag 2025', unread:true, priority:true },
+      { from:'GSE – Gestore Servizi Energetici', subject:'Rendiconto mensile maggio 2025', preview:'Si trasmette il rendiconto mensile dell\'energia incentivata per il periodo 01/05/2025 – 31/05/2025...', date:'28 mag 2025', unread:false },
+      { from:'Terna S.p.A.', subject:'Comunicazione aggiornamento misure tele-gestione', preview:'Si comunica l\'aggiornamento del sistema di tele-gestione del punto di connessione ID: AG-2024-0847...', date:'15 mag 2025', unread:false },
+    ],
+    consumer: [
+      { from:'Segreteria CER', subject:'Il tuo rendiconto CER – maggio 2025', preview:'Energia ricevuta dalla CER: 280 kWh · Risparmio stimato: €30,80 · Dettaglio disponibile nell\'area energia...', date:'01 giu 2025', unread:true },
+      { from:'Newsletter CER', subject:'Aggiornamento CER – Maggio 2025', preview:'La CER Enerbridge ha prodotto 92.400 kWh a maggio! Grazie alla tua adesione hai contribuito a ridurre 130 kg di CO₂...', date:'05 mag 2025', unread:false },
+    ],
+  };
+
+  const items = (msgs[role]||[]).map((m,i) => `
+    <div class="msg-item ${m.unread?'unread':''} ${m.priority?'priority':''}">
+      <div class="msg-header">
+        <div class="msg-from">${m.unread?'<span class="unread-dot"></span>':''}${m.from}</div>
+        <div class="msg-date">${m.date}</div>
+      </div>
+      <div class="msg-subject">${m.subject}</div>
+      <div class="msg-preview">${m.preview}</div>
+    </div>`).join('');
+
+  return `
+  <div class="card">
+    <div class="card-header"><div class="card-title">Messaggi</div><span class="card-badge orange">${(msgs[role]||[]).filter(m=>m.unread).length} non letti</span></div>
+    <div class="card-body"><div class="msg-list">${items}</div></div>
+  </div>`;
+}
+
+// ============================
+// BILANCIO (solo fondatore)
+// ============================
+function bilancioPanel() {
+  return `
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">📈 Ricavi incentivi 2025 (ytd)</div><div class="kpi-value">€ 37.202</div><div class="kpi-sub">gen–mag 2025</div></div>
+    <div class="kpi-card"><div class="kpi-label">💸 Costi operativi 2025 (ytd)</div><div class="kpi-value orange">€ 14.800</div><div class="kpi-sub">O&M + assicurazione + gestione</div></div>
+    <div class="kpi-card"><div class="kpi-label">🏦 Margine operativo</div><div class="kpi-value green">€ 22.402</div><div class="kpi-sub">60,2% dei ricavi</div></div>
+    <div class="kpi-card"><div class="kpi-label">🎯 Previsione annua</div><div class="kpi-value yellow">€ 89.000</div><div class="kpi-sub">Incentivi netti 2025 (budget)</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><div class="card-title">Conto economico 2024 – approvato</div></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Voce</th><th>Importo</th></tr></thead>
+          <tbody>
+            <tr><td>Ricavi incentivi GSE</td><td style="text-align:right;color:var(--green);font-weight:700;">+ € 78.400</td></tr>
+            <tr><td>Ricavi RID (energia immessa)</td><td style="text-align:right;color:var(--green);font-weight:700;">+ € 9.800</td></tr>
+            <tr><td>Costi O&M impianto</td><td style="text-align:right;color:var(--orange);">- € 18.200</td></tr>
+            <tr><td>Costi amministrativi</td><td style="text-align:right;color:var(--orange);">- € 8.400</td></tr>
+            <tr><td>Assicurazioni</td><td style="text-align:right;color:var(--orange);">- € 3.200</td></tr>
+            <tr><td>Oneri finanziari</td><td style="text-align:right;color:var(--orange);">- € 46.000</td></tr>
+            <tr style="font-weight:800;background:var(--off);"><td>Utile netto 2024</td><td style="text-align:right;color:var(--green);font-weight:800;">€ 12.400</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Destinazione utile 2024</div></div>
+      <div class="card-body">
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Riserva legale (30%)</span><span class="progress-val">€ 3.720</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:30%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Fondo sviluppo CER (50%)</span><span class="progress-val">€ 6.200</span></div><div class="progress-bar"><div class="progress-fill pf-orange" style="width:50%"></div></div></div>
+        <div class="progress-row"><div class="progress-header"><span class="progress-label">Ristorno soci (20%)</span><span class="progress-val">€ 2.480</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:20%"></div></div></div>
+        <div class="divider"></div>
+        <div class="alert success" style="margin:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> <span>Delibera approvata in assemblea il 28/03/2025.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Piano finanziario 25 anni – indicatori chiave</div><span class="card-badge blue">D.Lgs. 199/2021</span></div>
+    <div class="card-body">
+      <div class="three-col">
+        <div style="text-align:center;padding:1.5rem;background:var(--off);border-radius:14px;">
+          <div class="kpi-label" style="justify-content:center;">VAN (25 anni)</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--green);margin:8px 0;">€ 842.000</div>
+          <div class="text-sm">Tasso di sconto: 5%</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;background:var(--off);border-radius:14px;">
+          <div class="kpi-label" style="justify-content:center;">TIR</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--blue);margin:8px 0;">12,4%</div>
+          <div class="text-sm">Tasso interno di rendimento</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;background:var(--off);border-radius:14px;">
+          <div class="kpi-label" style="justify-content:center;">Payback period</div>
+          <div style="font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);margin:8px 0;">7,2 anni</div>
+          <div class="text-sm">Inclusi incentivi GSE</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============================
+// HELPERS
+// ============================
+function barSection(title, labels, data1, cls1, data2, cls2) {
+  const max = Math.max(...data1, ...(data2||[]).filter(v=>v>0), 1);
+  const bars = labels.map((l,i) => {
+    const h1 = Math.round((data1[i]/max)*110);
+    const h2 = data2 && data2[i] ? Math.round((data2[i]/max)*110) : 0;
+    const bar2 = h2 ? `<div class="mbc-bar ${cls2}" style="height:${h2}px;width:40%;margin-right:2px;"></div>` : '';
+    const bar1 = data1[i] ? `<div class="mbc-bar ${cls1}" style="height:${h1}px;${data2&&data2[i]?'width:40%;margin-left:2px;':'width:100%;'}"></div>` : `<div style="height:${h1}px;width:100%;"></div>`;
+    const rowStyle = data2&&data2[i] ? 'width:100%;display:flex;align-items:flex-end;' : '';
+    return `<div class="mbc-wrap"><div style="${rowStyle}">${bar2}${bar1}</div><div class="mbc-label">${l}</div></div>`;
+  }).join('');
+  return `${title?`<div style="font-size:0.78rem;color:var(--gray);font-weight:600;margin-bottom:10px;">${title}</div>`:''}
+  <div class="mini-bar-chart">${bars}</div>`;
+}
+
+function progressSection(title, rows) {
+  const items = rows.map(r => `
+    <div class="progress-row">
+      <div class="progress-header"><span class="progress-label">${r.label}</span><span class="progress-val">${r.val}%</span></div>
+      <div class="progress-bar"><div class="progress-fill ${r.cls}" style="width:0%" data-target="${r.pct}"></div></div>
+    </div>`).join('');
+  return `<div style="font-family:'Exo 2',sans-serif;font-size:0.95rem;font-weight:700;color:var(--blue);margin-bottom:1rem;">${title}</div>${items}`;
+}
+
+function animateProgressBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill[data-target]').forEach(el => {
+      el.style.width = el.dataset.target + '%';
+    });
+  }, 100);
+}
+
+function castVote(btn, choice) {
+  const btns = btn.closest('.vote-btns').querySelectorAll('button');
+  btns.forEach(b => b.disabled = true);
+  const labels = {yes:'Voto FAVOREVOLE registrato ✓', no:'Voto CONTRARIO registrato.', astain:'ASTENSIONE registrata.'};
+  const result = document.getElementById('vote-result-1');
+  if (result) { result.textContent = labels[choice]; result.classList.add('show'); }
+}
+</script>
+</body>
+</html>
