@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CER Enerbridge Soc. Coop. a RL – Comunità Energetica Rinnovabile</title>
+  <meta name="description" content="CER Enerbridge è la Comunità Energetica Rinnovabile di Campobello di Licata (AG). Energia solare condivisa, risparmio in bolletta, incentivi GSE."/>
+  <meta name="keywords" content="CER, comunità energetica, Campobello di Licata, Agrigento, fotovoltaico, energia rinnovabile, GSE, D.Lgs. 199/2021"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --blue:#0D3B6E;--blue-mid:#1A5FAD;--blue-light:#2B7FE8;--blue-pale:#E6F1FB;
+      --orange:#E8660A;--orange-mid:#F07C2A;--orange-light:#FAA94A;
+      --yellow:#F5C518;--yellow-light:#FDE68A;
+      --white:#FFFFFF;--off-white:#F7F9FC;--gray:#64748B;--gray-light:#E2E8F0;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito',sans-serif;color:#1E293B;background:#fff;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,59,110,0.97);backdrop-filter:blur(10px);padding:0 2rem;}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .logo-text{color:#fff;font-family:'Exo 2',sans-serif;font-weight:800;font-size:1.15rem;line-height:1.15;}
+    .logo-sub{color:var(--orange-light);font-size:0.65rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;font-weight:600;letter-spacing:0.5px;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--yellow);}
+    .nav-cta{background:var(--orange);color:#fff;padding:8px 20px;border-radius:24px;font-size:0.85rem;font-weight:700;text-decoration:none;transition:background 0.2s;}
+    .nav-cta:hover{background:var(--orange-mid);}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+    .nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,59,110,0.98);backdrop-filter:blur(10px);padding:1.5rem 2rem;z-index:99;}
+    .nav-mobile.open{display:block;}
+    .nav-mobile ul{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+    .nav-mobile ul li a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:1rem;font-weight:600;display:block;padding:6px 0;}
+    .nav-mobile .nav-cta{display:inline-block;margin-top:1rem;}
+
+    /* HERO */
+    .hero{min-height:100vh;background:linear-gradient(135deg,#071E3D 0%,#0D3B6E 45%,#1A5FAD 100%);display:flex;align-items:center;position:relative;overflow:hidden;padding-top:68px;}
+    .hero-bg{position:absolute;inset:0;pointer-events:none;}
+    .solar-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,197,24,0.12);}
+    .solar-ring:nth-child(1){width:400px;height:400px;top:-100px;right:-100px;animation:spin 30s linear infinite;}
+    .solar-ring:nth-child(2){width:600px;height:600px;top:-200px;right:-200px;animation:spin 50s linear infinite reverse;}
+    .solar-ring:nth-child(3){width:800px;height:800px;top:-300px;right:-300px;animation:spin 70s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes pulse{0%,100%{opacity:0.6;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+    @keyframes rotateSun{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    .hero-content{max-width:1100px;margin:0 auto;padding:4rem 2rem;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,197,24,0.15);border:1px solid rgba(245,197,24,0.3);border-radius:24px;padding:6px 16px;margin-bottom:1.5rem;animation:fadeUp 0.6s ease 0.1s both;}
+    .hero-badge span{color:var(--yellow);font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+    .hero-badge-dot{width:6px;height:6px;background:var(--yellow);border-radius:50%;animation:pulse 2s infinite;}
+    .hero h1{font-family:'Exo 2',sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1.15;animation:fadeUp 0.6s ease 0.2s both;}
+    .hero h1 em{font-style:normal;color:var(--yellow);}
+    .hero-desc{color:rgba(255,255,255,0.75);font-size:1.05rem;line-height:1.8;margin:1.5rem 0 2rem;animation:fadeUp 0.6s ease 0.3s both;}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.6s ease 0.4s both;}
+    .btn-primary{background:var(--orange);color:#fff;padding:14px 28px;border-radius:32px;font-weight:700;text-decoration:none;font-size:0.95rem;transition:transform 0.15s,background 0.2s;display:inline-flex;align-items:center;gap:8px;}
+    .btn-primary:hover{background:var(--orange-mid);transform:translateY(-2px);}
+    .btn-secondary{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:14px 28px;border-radius:32px;font-weight:600;text-decoration:none;font-size:0.95rem;transition:background 0.2s;display:inline-flex;align-items:center;gap:8px;}
+    .btn-secondary:hover{background:rgba(255,255,255,0.2);}
+    .hero-visual{display:flex;justify-content:center;align-items:center;animation:fadeUp 0.6s ease 0.5s both;}
+
+    /* STATS STRIP */
+    .stats-strip{background:var(--white);border-top:4px solid var(--orange);padding:2.5rem 2rem;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+    .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center;}
+    .stat-item{padding:1rem;}
+    .stat-num{font-family:'Exo 2',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);}
+    .stat-num span{color:var(--orange);}
+    .stat-label{font-size:0.8rem;color:var(--gray);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-top:4px;}
+
+    /* SECTIONS */
+    section{padding:5rem 2rem;}
+    .container{max-width:1100px;margin:0 auto;}
+    .section-tag{display:inline-block;background:var(--blue-pale);color:var(--blue-mid);font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;}
+    .section-title{font-family:'Exo 2',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);line-height:1.25;margin-bottom:1rem;}
+    .section-title em{font-style:normal;color:var(--orange);}
+    .section-desc{color:var(--gray);font-size:1rem;line-height:1.8;max-width:560px;}
+
+    /* CHI SIAMO */
+    .about{background:var(--off-white);}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem;}
+    .about-cards{display:flex;flex-direction:column;gap:1rem;}
+    .about-card{background:#fff;border-radius:16px;padding:1.5rem;border-left:4px solid var(--orange);box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+    .about-card h3{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:6px;}
+    .about-card p{font-size:0.875rem;color:var(--gray);line-height:1.7;}
+    .about-highlight{background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:20px;padding:2.5rem;color:#fff;text-align:center;}
+    .about-highlight .big-num{font-family:'Exo 2',sans-serif;font-size:3.5rem;font-weight:800;color:var(--yellow);line-height:1;}
+    .about-highlight p{color:rgba(255,255,255,0.85);font-size:0.9rem;margin-top:8px;}
+    .about-location{margin-top:1.5rem;display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,0.75);font-size:0.875rem;}
+    .tag-pill{background:var(--blue-pale);color:var(--blue);font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:20px;}
+    .tag-pill.orange{background:#FEF0E6;color:var(--orange);}
+    .tag-pill.yellow{background:#FFFBEB;color:#92400E;}
+    .tag-pill.green{background:#ECFDF5;color:#065F46;}
+
+    /* DASHBOARD */
+    .dashboard{background:#fff;}
+    .dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+    .dash-card{background:var(--off-white);border-radius:20px;padding:1.75rem;border:1px solid var(--gray-light);transition:transform 0.2s,box-shadow 0.2s;}
+    .dash-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.08);}
+    .dash-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
+    .dash-icon.blue{background:var(--blue-pale);}
+    .dash-icon.orange{background:#FEF0E6;}
+    .dash-icon.yellow{background:#FFFBEB;}
+    .dash-icon.green{background:#ECFDF5;}
+    .dash-value{font-family:'Exo 2',sans-serif;font-size:2rem;font-weight:800;color:var(--blue);}
+    .dash-value span{font-size:1rem;color:var(--gray);font-weight:400;}
+    .dash-label{font-size:0.8rem;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;}
+    .dash-trend{margin-top:12px;font-size:0.78rem;color:#16A34A;font-weight:600;}
+    .bar-section{margin-top:2rem;background:var(--off-white);border-radius:20px;padding:2rem;border:1px solid var(--gray-light);}
+    .bar-title{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:1.5rem;}
+    .bar-chart{display:flex;align-items:flex-end;gap:12px;height:160px;}
+    .bar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+    .bar{width:100%;border-radius:8px 8px 0 0;min-width:20px;}
+    .bar.bar-blue{background:linear-gradient(to top,#0D3B6E,#2B7FE8);}
+    .bar.bar-orange{background:linear-gradient(to top,#E8660A,#FAA94A);}
+    .bar-month{font-size:0.7rem;color:var(--gray);font-weight:600;}
+    .bar-kwh{font-size:0.65rem;color:var(--blue);font-weight:700;}
+
+    /* COME ADERIRE */
+    .join{background:linear-gradient(135deg,#071E3D,#0D3B6E);}
+    .join .section-title{color:#fff;}
+    .join .section-desc{color:rgba(255,255,255,0.7);}
+    .join .section-tag{background:rgba(245,197,24,0.15);color:var(--yellow);}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative;}
+    .steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:2px;background:linear-gradient(to right,var(--orange),var(--yellow));opacity:0.3;}
+    .step{text-align:center;padding:1.5rem 1rem;}
+    .step-num{width:64px;height:64px;border-radius:50%;background:rgba(245,197,24,0.12);border:2px solid var(--yellow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'Exo 2',sans-serif;font-size:1.5rem;font-weight:800;color:var(--yellow);}
+    .step h3{font-family:'Exo 2',sans-serif;font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:8px;}
+    .step p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.6;}
+
+    /* BENEFICI */
+    .benefits{background:var(--off-white);}
+    .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+    .benefit-card{background:#fff;border-radius:20px;padding:2rem;border:1px solid var(--gray-light);text-align:center;transition:transform 0.2s,box-shadow 0.2s;}
+    .benefit-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.08);}
+    .benefit-emoji{font-size:2.5rem;margin-bottom:1rem;display:block;}
+    .benefit-card h3{font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:8px;}
+    .benefit-card p{font-size:0.85rem;color:var(--gray);line-height:1.7;}
+
+    /* CONTATTI */
+    .contact{background:#fff;}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start;}
+    .contact-info{display:flex;flex-direction:column;gap:1.5rem;}
+    .contact-item{display:flex;gap:1rem;align-items:flex-start;}
+    .contact-ic{width:44px;height:44px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .contact-item h4{font-weight:700;color:var(--blue);font-size:0.9rem;margin-bottom:3px;}
+    .contact-item p{font-size:0.875rem;color:var(--gray);line-height:1.6;}
+    .contact-item a{color:var(--blue-mid);text-decoration:none;font-weight:600;}
+    .contact-form{background:var(--off-white);border-radius:24px;padding:2.5rem;border:1px solid var(--gray-light);}
+    .form-title{font-family:'Exo 2',sans-serif;font-size:1.2rem;font-weight:700;color:var(--blue);margin-bottom:1.5rem;}
+    .form-row{margin-bottom:1.25rem;}
+    .form-row label{display:block;font-size:0.8rem;font-weight:700;color:var(--blue);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
+    .form-row input,.form-row select,.form-row textarea{width:100%;padding:12px 16px;border:1.5px solid var(--gray-light);border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.9rem;color:#1E293B;background:#fff;transition:border-color 0.2s,box-shadow 0.2s;outline:none;appearance:none;}
+    .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(26,95,173,0.1);}
+    .form-row textarea{height:110px;resize:vertical;}
+    .form-row.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .form-submit{width:100%;background:var(--orange);color:#fff;padding:14px;border:none;border-radius:32px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s,transform 0.15s;}
+    .form-submit:hover{background:var(--orange-mid);transform:translateY(-1px);}
+    .form-note{font-size:0.72rem;color:var(--gray);margin-top:12px;text-align:center;}
+    .zone-box{background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:16px;padding:1.5rem;}
+    .zone-box-label{font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+    .zone-box-text{color:#fff;font-size:0.9rem;line-height:1.7;}
+
+    /* FOOTER */
+    footer{background:#071E3D;padding:4rem 2rem 2rem;color:rgba(255,255,255,0.7);}
+    .footer-inner{max-width:1100px;margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.1);}
+    .footer-brand p{font-size:0.875rem;line-height:1.8;margin-top:1rem;max-width:300px;}
+    .footer-col h4{font-family:'Exo 2',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow);margin-bottom:1.2rem;}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+    .footer-col ul li a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.875rem;transition:color 0.2s;}
+    .footer-col ul li a:hover{color:#fff;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;font-size:0.8rem;flex-wrap:wrap;gap:1rem;}
+    .footer-links{display:flex;gap:1.5rem;}
+    .footer-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.8rem;transition:color 0.2s;}
+    .footer-links a:hover{color:#fff;}
+    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.2);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:var(--yellow);margin-top:1rem;}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero-content{grid-template-columns:1fr;}
+      .hero-visual{display:none;}
+      .hero h1{font-size:2.2rem;}
+      .about-grid{grid-template-columns:1fr;}
+      .contact-grid{grid-template-columns:1fr;}
+      .dash-grid{grid-template-columns:1fr 1fr;}
+      .footer-top{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:640px){
+      .stats-inner{grid-template-columns:1fr 1fr;}
+      .steps{grid-template-columns:1fr 1fr;}
+      .steps::before{display:none;}
+      .benefits-grid{grid-template-columns:1fr 1fr;}
+      .dash-grid{grid-template-columns:1fr;}
+      .footer-top{grid-template-columns:1fr;}
+      .nav-links,.nav-cta{display:none;}
+      .nav-hamburger{display:flex;}
+      .form-row.two{grid-template-columns:1fr;}
+      .hero h1{font-size:1.8rem;}
+    }
+    @media(max-width:420px){
+      .benefits-grid{grid-template-columns:1fr;}
+      .steps{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="10" fill="#F5C518"/>
+        <g stroke="#F5C518" stroke-width="2" stroke-linecap="round">
+          <line x1="20" y1="4" x2="20" y2="8"/>
+          <line x1="20" y1="32" x2="20" y2="36"/>
+          <line x1="4" y1="20" x2="8" y2="20"/>
+          <line x1="32" y1="20" x2="36" y2="20"/>
+          <line x1="8.5" y1="8.5" x2="11.5" y2="11.5"/>
+          <line x1="28.5" y1="28.5" x2="31.5" y2="31.5"/>
+          <line x1="31.5" y1="8.5" x2="28.5" y2="11.5"/>
+          <line x1="11.5" y1="28.5" x2="8.5" y2="31.5"/>
+        </g>
+        <circle cx="20" cy="20" r="6" fill="#0D3B6E"/>
+        <path d="M16 20 L20 15 L24 20 L20 25 Z" fill="#F5C518" opacity="0.8"/>
+      </svg>
+      <div>
+        <div class="logo-text">Enerbridge</div>
+        <div class="logo-sub">CER · Soc. Coop. a RL</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#impianto">Impianto</a></li>
+      <li><a href="#come-aderire">Come aderire</a></li>
+      <li><a href="#benefici">Benefici</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <a href="area-riservata.html" class="nav-cta" style="background:var(--blue-mid);margin-right:8px;">🔒 Area Soci</a>
+    <a href="#contatti" class="nav-cta">Aderisci ora</a>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile" id="mobileMenu">
+  <ul>
+    <li><a href="#chi-siamo" onclick="toggleMenu()">Chi siamo</a></li>
+    <li><a href="#impianto" onclick="toggleMenu()">Impianto</a></li>
+    <li><a href="#come-aderire" onclick="toggleMenu()">Come aderire</a></li>
+    <li><a href="#benefici" onclick="toggleMenu()">Benefici</a></li>
+    <li><a href="#contatti" onclick="toggleMenu()">Contatti</a></li>
+  </ul>
+  <a href="#contatti" class="nav-cta" onclick="toggleMenu()">Aderisci ora</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="solar-ring"></div>
+    <div class="solar-ring"></div>
+    <div class="solar-ring"></div>
+  </div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Comunità Energetica Rinnovabile</span>
+      </div>
+      <h1>Energia pulita,<br><em>comunità forte</em></h1>
+      <p class="hero-desc">CER Enerbridge Soc. Coop. a RL è la comunità energetica rinnovabile di Campobello di Licata. Produciamo energia solare condivisa per ridurre i costi e l'impatto ambientale del territorio.</p>
+      <div class="hero-btns">
+        <a href="#come-aderire" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4L10.6 5.4 16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg>
+          Scopri come aderire
+        </a>
+        <a href="#impianto" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Il nostro impianto
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 280 280" width="280" height="280" aria-label="Illustrazione impianto fotovoltaico 800 kWp Gibbesi Naro AG">
+        <defs>
+          <radialGradient id="sg" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#FFF9C4"/>
+            <stop offset="40%" stop-color="#F5C518"/>
+            <stop offset="100%" stop-color="#E8660A" stop-opacity="0.6"/>
+          </radialGradient>
+        </defs>
+        <g transform="translate(140,140)">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0" to="360 0 0" dur="60s" repeatCount="indefinite" additive="sum"/>
+          <line x1="0" y1="-90" x2="0" y2="-115" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="63.6" y1="-63.6" x2="81.3" y2="-81.3" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="90" y1="0" x2="115" y2="0" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="63.6" y1="63.6" x2="81.3" y2="81.3" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="0" y1="90" x2="0" y2="115" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="-63.6" y1="63.6" x2="-81.3" y2="81.3" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="-90" y1="0" x2="-115" y2="0" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+          <line x1="-63.6" y1="-63.6" x2="-81.3" y2="-81.3" stroke="#F5C518" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        </g>
+        <circle cx="140" cy="140" r="72" fill="url(#sg)">
+          <animate attributeName="r" values="72;76;72" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <text x="140" y="133" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="13" font-weight="700" fill="#0D3B6E">800 kWp</text>
+        <text x="140" y="150" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" font-weight="600" fill="#0D3B6E">Gibbesi · Naro AG</text>
+        <circle cx="140" cy="140" r="78" fill="none" stroke="rgba(245,197,24,0.25)" stroke-width="1.5" stroke-dasharray="6 4">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 140 140" to="-360 140 140" dur="20s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="140" cy="140" r="100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <circle cx="240" cy="140" r="8" fill="#1A5FAD" opacity="0.8">
+          <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 140 140" to="360 140 140" dur="8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">800<span> kWp</span></div>
+      <div class="stat-label">Potenza impianto</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="color:var(--orange);">1.100<span> MWh/a</span></div>
+      <div class="stat-label">Energia prodotta/anno</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">550<span> ton</span></div>
+      <div class="stat-label">CO₂ evitata/anno</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="color:var(--orange);">D.Lgs.<span> 199/21</span></div>
+      <div class="stat-label">Normativa di riferimento</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHI SIAMO -->
+<section class="about" id="chi-siamo">
+  <div class="container">
+    <div class="section-tag">Chi siamo</div>
+    <h2 class="section-title">Una cooperativa al servizio<br>del <em>territorio siciliano</em></h2>
+    <div class="about-grid">
+      <div>
+        <p class="section-desc">CER Enerbridge Soc. Coop. a RL è una comunità energetica rinnovabile costituita ai sensi del D.Lgs. 199/2021. Unisce produttori e consumatori locali in un unico soggetto giuridico per condividere l'energia prodotta dall'impianto fotovoltaico di Gibbesi, nel Comune di Naro (AG).</p>
+        <div class="about-cards" style="margin-top:2rem;">
+          <div class="about-card">
+            <h3>Forma giuridica</h3>
+            <p>Società Cooperativa a Responsabilità Limitata – modello partecipativo che garantisce governance democratica tra i soci.</p>
+          </div>
+          <div class="about-card">
+            <h3>Sede operativa</h3>
+            <p>Via Barone La Lomia 29, Campobello di Licata 92023 (AG) – Sicilia.</p>
+          </div>
+          <div class="about-card">
+            <h3>Incentivi CER</h3>
+            <p>Accesso alle tariffe incentivanti GSE per l'energia condivisa e alla componente RID per l'energia immessa in rete.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="about-highlight">
+          <div class="big-num">800</div>
+          <p style="font-size:1rem;font-weight:600;color:#FDE68A;">kWp installati</p>
+          <p>Impianto fotovoltaico a terra in loc. Gibbesi, Comune di Naro (AG)</p>
+          <div class="about-location">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Naro · Campobello di Licata · Agrigento, Sicilia
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:1.5rem;border:1px solid var(--gray-light);margin-top:1.5rem;">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;">Soci ammissibili</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tag-pill">Famiglie</span>
+            <span class="tag-pill orange">PMI</span>
+            <span class="tag-pill yellow">Enti Pubblici</span>
+            <span class="tag-pill green">Associazioni</span>
+            <span class="tag-pill">Terzo settore</span>
+            <span class="tag-pill orange">Agricoltori</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPIANTO / DASHBOARD -->
+<section class="dashboard" id="impianto">
+  <div class="container">
+    <div class="section-tag">Impianto fotovoltaico</div>
+    <h2 class="section-title">Dati energetici del nostro <em>impianto</em></h2>
+    <p class="section-desc">Il nostro impianto da 800 kWp in località Gibbesi (Naro, AG) produce energia solare distribuita tra i soci della comunità.</p>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-icon blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="dash-value">800 <span>kWp</span></div>
+        <div class="dash-label">Potenza di picco</div>
+        <div class="dash-trend">↗ Impianto a terra · Naro AG</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8660A" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="dash-value" style="color:var(--orange);">1.100 <span>MWh</span></div>
+        <div class="dash-label">Producibilità annua stimata</div>
+        <div class="dash-trend" style="color:var(--orange-mid);">↗ Media zona AG: ~1.380 h/anno</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon yellow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="dash-value" style="color:#B45309;">550 <span>ton/a</span></div>
+        <div class="dash-label">CO₂ evitata/anno</div>
+        <div class="dash-trend" style="color:#16A34A;">↗ Equivale a ~2.750 alberi</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>
+        </div>
+        <div class="dash-value" style="color:#065F46;">110 <span>€/MWh</span></div>
+        <div class="dash-label">Tariffa incentivante GSE</div>
+        <div class="dash-trend" style="color:#16A34A;">↗ D.Lgs. 199/2021 – Fascia C</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="dash-value">25 <span>anni</span></div>
+        <div class="dash-label">Periodo incentivo GSE</div>
+        <div class="dash-trend">↗ Piano economico 2025–2050</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8660A" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="dash-value" style="color:var(--orange);">Aperta</div>
+        <div class="dash-label">Adesioni nuovi soci</div>
+        <div class="dash-trend" style="color:var(--orange-mid);">↗ Cabina primaria: Campobello di Licata</div>
+      </div>
+    </div>
+    <div class="bar-section">
+      <div class="bar-title">Stima producibilità mensile (MWh) – Impianto 800 kWp · Zona AG</div>
+      <div class="bar-chart">
+        <div class="bar-wrap"><div class="bar bar-orange" style="height:55px"></div><div class="bar-month">Gen</div><div class="bar-kwh">68</div></div>
+        <div class="bar-wrap"><div class="bar bar-orange" style="height:63px"></div><div class="bar-month">Feb</div><div class="bar-kwh">78</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:81px"></div><div class="bar-month">Mar</div><div class="bar-kwh">100</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:96px"></div><div class="bar-month">Apr</div><div class="bar-kwh">118</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:109px"></div><div class="bar-month">Mag</div><div class="bar-kwh">134</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:114px"></div><div class="bar-month">Giu</div><div class="bar-kwh">140</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:114px"></div><div class="bar-month">Lug</div><div class="bar-kwh">140</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:110px"></div><div class="bar-month">Ago</div><div class="bar-kwh">136</div></div>
+        <div class="bar-wrap"><div class="bar bar-blue" style="height:91px"></div><div class="bar-month">Set</div><div class="bar-kwh">112</div></div>
+        <div class="bar-wrap"><div class="bar bar-orange" style="height:73px"></div><div class="bar-month">Ott</div><div class="bar-kwh">90</div></div>
+        <div class="bar-wrap"><div class="bar bar-orange" style="height:58px"></div><div class="bar-month">Nov</div><div class="bar-kwh">72</div></div>
+        <div class="bar-wrap"><div class="bar bar-orange" style="height:48px"></div><div class="bar-month">Dic</div><div class="bar-kwh">60</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COME ADERIRE -->
+<section class="join" id="come-aderire">
+  <div class="container">
+    <div class="section-tag">Come aderire</div>
+    <h2 class="section-title">4 passi per entrare nella <em style="color:var(--yellow);">comunità</em></h2>
+    <p class="section-desc">Il processo di adesione è semplice e completamente supportato dal nostro team tecnico.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Richiesta di adesione</h3>
+        <p>Compila il modulo di contatto indicando la tua utenza e il tuo POD di allacciamento alla rete elettrica.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Verifica cabina primaria</h3>
+        <p>Verifichiamo che il tuo contatore sia sotto la stessa cabina primaria dell'impianto (Campobello di Licata).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Firma dello statuto</h3>
+        <p>Sottoscrivi la quota societaria e firma il contratto di adesione alla cooperativa.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Attivazione GSE</h3>
+        <p>Provvediamo alla registrazione presso il GSE. Da quel momento ricevi gli incentivi sull'energia condivisa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICI -->
+<section class="benefits" id="benefici">
+  <div class="container">
+    <div class="section-tag">Perché aderire</div>
+    <h2 class="section-title">I <em>vantaggi</em> per i soci</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="benefit-emoji">💰</span>
+        <h3>Risparmio in bolletta</h3>
+        <p>Riduci la spesa energetica grazie alla quota di energia condivisa prodotta dall'impianto e agli incentivi GSE distribuiti tra i soci.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-emoji">🌍</span>
+        <h3>Impatto ambientale zero</h3>
+        <p>Contribuisci alla riduzione di oltre 550 tonnellate di CO₂ all'anno, migliorando la qualità dell'aria nel territorio agrigentino.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-emoji">⚡</span>
+        <h3>Energia rinnovabile locale</h3>
+        <p>Consumi energia prodotta a pochi chilometri da casa tua, riducendo la dipendenza dalle fonti fossili e dalla rete nazionale.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-emoji">🤝</span>
+        <h3>Governance democratica</h3>
+        <p>Come socio della cooperativa hai voce in capitolo nelle decisioni strategiche con il principio "una testa, un voto".</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-emoji">📋</span>
+        <h3>Zero burocrazia</h3>
+        <p>Gestiamo noi tutta la documentazione: registrazione GSE, pratiche Terna/e-distribuzione, rendiconti annuali ai soci.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-emoji">🏆</span>
+        <h3>Incentivi per 25 anni</h3>
+        <p>Il meccanismo incentivante del D.Lgs. 199/2021 garantisce una remunerazione stabile per l'energia condivisa per 25 anni.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section class="contact" id="contatti">
+  <div class="container">
+    <div class="section-tag">Contatti</div>
+    <h2 class="section-title">Entra in contatto con <em>Enerbridge</em></h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p style="color:var(--gray);line-height:1.8;font-size:0.95rem;">Hai domande sull'adesione o vuoi ricevere una valutazione personalizzata del tuo risparmio? Il nostro team è a disposizione per guidarti in ogni fase del processo.</p>
+        <div class="contact-item">
+          <div class="contact-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h4>Sede legale</h4>
+            <p>Via Barone La Lomia 29<br>Campobello di Licata 92023 (AG)</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:cerenerbridgesoccooparl@gmail.com">cerenerbridgesoccooparl@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A5FAD" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div>
+            <h4>Forma giuridica</h4>
+            <p>CER Enerbridge Soc. Coop. a RL<br>Comunità Energetica Rinnovabile</p>
+          </div>
+        </div>
+        <div class="zone-box">
+          <div class="zone-box-label">Zona di ammissibilità</div>
+          <div class="zone-box-text">Utenti sotto la cabina primaria di <strong>Campobello di Licata</strong> e comuni limitrofi della provincia di Agrigento.</div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Richiesta di adesione</div>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row two">
+            <div>
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" placeholder="Mario" required/>
+            </div>
+            <div>
+              <label for="cognome">Cognome</label>
+              <input type="text" id="cognome" name="cognome" placeholder="Rossi" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="mario.rossi@email.it" required/>
+          </div>
+          <div class="form-row">
+            <label for="tel">Telefono</label>
+            <input type="tel" id="tel" name="telefono" placeholder="+39 347 000 0000"/>
+          </div>
+          <div class="form-row">
+            <label for="tipo">Tipo di socio</label>
+            <select id="tipo" name="tipo_socio">
+              <option value="">Seleziona...</option>
+              <option>Famiglia / Privato</option>
+              <option>Piccola/Media Impresa</option>
+              <option>Ente Pubblico</option>
+              <option>Associazione / Terzo settore</option>
+              <option>Azienda agricola</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="msg">Messaggio</label>
+            <textarea id="msg" name="messaggio" placeholder="Indica il tuo Comune, il POD del contatore (se disponibile) e qualsiasi informazione utile per la valutazione..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Invia richiesta di adesione →</button>
+          <p class="form-note">Rispondiamo entro 48 ore lavorative. I tuoi dati sono trattati ai sensi del GDPR.</p>
+        </form>
+        <div id="form-success" style="display:none;background:#ECFDF5;border:1.5px solid #A7F3D0;border-radius:16px;padding:1.5rem;text-align:center;margin-top:1rem;">
+          <div style="font-size:2rem;margin-bottom:8px;">✅</div>
+          <strong style="color:#065F46;font-family:'Exo 2',sans-serif;">Richiesta inviata!</strong>
+          <p style="color:#047857;font-size:0.875rem;margin-top:6px;">Ti risponderemo entro 48 ore lavorative all'indirizzo email indicato.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="10" fill="#F5C518"/>
+            <g stroke="#F5C518" stroke-width="2" stroke-linecap="round">
+              <line x1="20" y1="4" x2="20" y2="8"/>
+              <line x1="20" y1="32" x2="20" y2="36"/>
+              <line x1="4" y1="20" x2="8" y2="20"/>
+              <line x1="32" y1="20" x2="36" y2="20"/>
+            </g>
+            <circle cx="20" cy="20" r="6" fill="#071E3D"/>
+          </svg>
+          <div>
+            <div class="logo-text">Enerbridge</div>
+            <div class="logo-sub">CER · Soc. Coop. a RL</div>
+          </div>
+        </a>
+        <p>La comunità energetica rinnovabile di Campobello di Licata. Energia solare condivisa per un futuro sostenibile in Sicilia.</p>
+        <div class="footer-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          D.Lgs. 199/2021 · GSE certificata
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigazione</h4>
+        <ul>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#impianto">Il nostro impianto</a></li>
+          <li><a href="#come-aderire">Come aderire</a></li>
+          <li><a href="#benefici">Benefici</a></li>
+          <li><a href="#contatti">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="mailto:cerenerbridgesoccooparl@gmail.com">Email</a></li>
+          <li><a href="#contatti">Via Barone La Lomia 29</a></li>
+          <li><a href="#contatti">Campobello di Licata 92023 (AG)</a></li>
+          <li><a href="#contatti">Sicilia, Italia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CER Enerbridge Soc. Coop. a RL – Tutti i diritti riservati</span>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    var m = document.getElementById('mobileMenu');
+    m.classList.toggle('open');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    var form = e.target;
+    var nome = form.nome.value;
+    var cognome = form.cognome.value;
+    var email = form.email.value;
+    if (!nome || !cognome || !email) return;
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  // Scroll-based navbar shadow
+  window.addEventListener('scroll', function() {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 10) {
+      nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.18)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+
+  // Intersection Observer for fade-in cards
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.dash-card, .benefit-card, .about-card, .step').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
